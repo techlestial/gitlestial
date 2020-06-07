@@ -25,5 +25,5 @@ function commit(message) {
 
 module.exports = {
   commit,
-  commitGit
+  commitGit,
 };

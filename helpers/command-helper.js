@@ -15,6 +15,15 @@ function testCommand(command) {
   });
 }
 
+function checkArg(arg) {
+  if (process.argv.includes(arg)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 module.exports = {
   testCommand,
+  checkArg,
 };
