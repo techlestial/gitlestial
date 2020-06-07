@@ -14,15 +14,16 @@ function writeFile(filePath, data) {
 
 function removeFile(fileName) {
   return new Promise((resolve, reject) => {
-    const child = spawn("bfg", ["--delete-files",fileName, "--no-blob-protection"]);
-    child.stdout.on("data", (chunk) => {
-      console.log(chunk.toString("utf8"));
-    });
+    const child = spawn("bfg", [
+      "--delete-files",
+      fileName,
+      "--no-blob-protection",
+    ]);
     child.stderr.on("data", (error) => {
-      reject();
+      reject(error.toString("utf-8"));
     });
     child.on("error", (error) => {
-      reject();
+      reject(error);
     });
     child.on("close", () => {
       resolve();
