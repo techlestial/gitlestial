@@ -17,7 +17,7 @@ function testCommand(command) {
 
 function checkArg(arg) {
   if (process.argv.includes(arg)) {
-    return true;
+    return process.argv.indexOf(arg);
   } else {
     return false;
   }

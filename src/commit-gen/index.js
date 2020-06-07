@@ -12,7 +12,7 @@ const { mkDir } = require("../../helpers/dir-helper");
 const { checkArg } = require("../../helpers/command-helper");
 
 async function generateCommit() {
-  let filePath, amount;
+  let filePath, amount, contributors;
   try {
     await mkDir();
     filePath = await touchFile();
@@ -20,23 +20,59 @@ async function generateCommit() {
     amount = getAmount() || 1;
     console.log("Committing for " + amount + " times");
     console.log("Do not terminate this process!");
-    checkArg();
+    const contributorOption = checkArg("--contributors");
+    if (contributorOption) {
+      contributors = getContributors(contributorOption + 1);
+    }
     for (var i = 0; i < amount; i++) {
       await writeFile(filePath, i);
+      if (contributorOption && contributors.length) {
+        await configUserEmail(contributors);
+      }
       await commit("Gitlestial Commit-Gen");
     }
   } catch (ex) {
     logError(ex);
   } finally {
     console.log("Complete committing for " + amount + " times");
-    await removeFile(".commit").then(async() => {
-      await removeGit(filePath);
-      console.log("Now do git push -f to your repository and voila!");
-    }).catch(async (err) => {
-      await removeGit(filePath);
-      console.log("Now do git push -f to your repository and voila!");
-    });
+    await removeFile(".commit")
+      .then(async () => {
+        await removeGit(filePath);
+        console.log("Now do git push -f to your repository and voila!");
+      })
+      .catch(async (err) => {
+        await removeGit(filePath);
+        console.log("Now do git push -f to your repository and voila!");
+      });
   }
+}
+
+function getRandomNumber(maxNum) {
+  return Math.floor(Math.random() * maxNum);
+}
+
+function configUserEmail(contributors) {
+  return new Promise((resolve, reject) => {
+    if(!contributors.length) {
+      return reject();
+    }
+    const child = spawn("git", [
+      "--config",
+      "user.email",
+      contributors[getRandomNumber(contributors.length)],
+    ]);
+    child.on("close", () => {
+      resolve();
+    });
+  });
+}
+
+function getContributors(contribIndex) {
+  if (!process.env[contribIndex] ) {
+    return [];
+  }
+  const contributors = process.env[contribIndex].split(",");
+  return contributors;
 }
 
 function getAmount() {

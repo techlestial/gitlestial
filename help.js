@@ -1,10 +1,21 @@
+const { logError } = require("./helpers/error-helper");
+const { spawn } = require("child_process");
+
 function displayHelp(arguments) {
   const help = arguments.split("--")[1];
   if (help === "help") {
     showHelp();
   } else {
-    console.log("Unknown argument.");
-    console.log("Please use gitlestial --help to view available commands.");
+    const child = spawn("git", process.argv.slice(2, process.argv.length));
+    child.stdout.on("data", (chunk) => {
+      console.log(chunk.toString("utf-8"))
+    });
+    child.stderr.on("data", (error) => {
+      logError(error.toString("utf-8"))
+    });
+    child.on("error", (error) => {
+      logError(error);
+    });
   }
 }
 
