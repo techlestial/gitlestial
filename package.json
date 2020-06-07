@@ -1,5 +1,5 @@
 {
-  "name": "gitlestial",
+  "name": "@techlestial/gitlestial",
   "version": "1.0.0",
   "description": "Gitlestial - A git manipulating tool",
   "main": "index.js",
