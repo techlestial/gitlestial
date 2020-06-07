@@ -24,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/techlestial/gitlestial/issues"
   },
-  "homepage": "https://github.com/techlestial/gitlestial#readme"
+  "homepage": "https://github.com/techlestial/gitlestial#readme",
+  "dependencies": {}
 }
