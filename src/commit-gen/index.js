@@ -10,13 +10,26 @@ async function generateCommit() {
     await mkDir();
     const filePath = await touchFile();
     await addGit(filePath);
-    for (var i = 0; i < 100; i++) {
-      await writeFile(filePath,i);
-      await commit("Gitlestial Commit-Gen "+i)
+    const amount = getAmount() || 1;
+    for (var i = 0; i < amount; i++) {
+      await writeFile(filePath, i);
+      await commit("Gitlestial Commit-Gen " + i);
     }
   } catch (ex) {
     logError(ex);
   }
+}
+
+function getAmount() {
+  const amountIndex = process.argv.indexOf("--amount");
+  if (!amountIndex) {
+    return;
+  }
+  const amount = process.argv[amountIndex + 1];
+  if (!parseInt(amount)) {
+    return;
+  }
+  return amount;
 }
 
 module.exports = {
