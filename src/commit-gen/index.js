@@ -54,7 +54,7 @@ function getRandomNumber(maxNum) {
 
 function configUserEmail(contributors) {
   return new Promise((resolve, reject) => {
-    if(!contributors.length) {
+    if (!contributors.length) {
       return reject();
     }
     const child = spawn("git", [
@@ -69,10 +69,10 @@ function configUserEmail(contributors) {
 }
 
 function getContributors(contribIndex) {
-  if (!process.env[contribIndex] ) {
+  if (!process.argv[contribIndex]) {
     return [];
   }
-  const contributors = process.env[contribIndex].split(",");
+  const contributors = process.argv[contribIndex].split(",");
   return contributors;
 }
 
