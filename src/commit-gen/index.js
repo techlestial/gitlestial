@@ -2,7 +2,11 @@ const { spawn } = require("child_process");
 const { addGit } = require("../add");
 const { commit } = require("../commit");
 const { logError } = require("../../helpers/error-helper");
-const { writeFile, touchFile } = require("../../helpers/file-helper");
+const {
+  writeFile,
+  touchFile,
+  removeFile,
+} = require("../../helpers/file-helper");
 const { mkDir } = require("../../helpers/dir-helper");
 
 async function generateCommit() {
