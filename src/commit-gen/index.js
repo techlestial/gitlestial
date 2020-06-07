@@ -9,6 +9,7 @@ const {
   removeFile,
 } = require("../../helpers/file-helper");
 const { mkDir } = require("../../helpers/dir-helper");
+const { checkArg } = require("../../helpers/command-helper");
 
 async function generateCommit() {
   let filePath, amount;
@@ -19,6 +20,7 @@ async function generateCommit() {
     amount = getAmount() || 1;
     console.log("Committing for " + amount + " times");
     console.log("Do not terminate this process!");
+    checkArg();
     for (var i = 0; i < amount; i++) {
       await writeFile(filePath, i);
       await commit("Gitlestial Commit-Gen");
@@ -27,10 +29,12 @@ async function generateCommit() {
     logError(ex);
   } finally {
     console.log("Complete committing for " + amount + " times");
-    await removeFile(".commit").catch((err) => {
+    await removeFile(".commit").then(async() => {
+      await removeGit(filePath);
+      console.log("Now do git push -f to your repository and voila!");
+    }).catch((err) => {
       logError(err);
     });
-    await removeGit(filePath);
   }
 }
 
