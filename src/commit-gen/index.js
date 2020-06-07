@@ -1,6 +1,7 @@
 const { spawn } = require("child_process");
 const { addGit } = require("../add");
 const { commit } = require("../commit");
+const { removeGit } = require("../rm");
 const { logError } = require("../../helpers/error-helper");
 const {
   writeFile,
@@ -10,9 +11,10 @@ const {
 const { mkDir } = require("../../helpers/dir-helper");
 
 async function generateCommit() {
+  let filePath;
   try {
     await mkDir();
-    const filePath = await touchFile();
+    filePath = await touchFile();
     await addGit(filePath);
     const amount = getAmount() || 1;
     for (var i = 0; i < amount; i++) {
@@ -22,9 +24,10 @@ async function generateCommit() {
   } catch (ex) {
     logError(ex);
   } finally {
-    removeFile(".commit").catch((err) => {
+    await removeFile(".commit").catch((err) => {
       logError(err);
     });
+    await removeGit(filePath);
   }
 }
 
