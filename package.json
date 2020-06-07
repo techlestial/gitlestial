@@ -1,6 +1,6 @@
 {
   "name": "@techlestial/gitlestial",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gitlestial - A git manipulating tool",
   "main": "index.js",
   "bin": {
