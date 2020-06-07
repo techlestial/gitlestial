@@ -27,6 +27,7 @@ async function generateCommit() {
     for (var i = 0; i < amount; i++) {
       await writeFile(filePath, i);
       if (contributorOption && contributors.length) {
+        console.log(contributors);
         await configUserEmail(contributors);
       }
       await commit("Gitlestial Commit-Gen");
