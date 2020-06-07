@@ -16,6 +16,7 @@ function showHelp() {
   gitlestial --help     : Display available commands\r\n
   gitlestial init       : Initiate Git repository\r\n
   gitlestial add        : Add all files inside directory\r\n
+  gitlestial commit     : Make a git commit\r\n
   gitlestial commit-gen : Commit generator functions\r\n`);
 }
 

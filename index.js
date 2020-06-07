@@ -3,6 +3,7 @@ const { displayHelp } = require("./help");
 const { generateCommit } = require("./src/commit-gen");
 const { initGit } = require("./src/init");
 const { addGit } = require("./src/add");
+const { commitGit } = require("./src/commit");
 
 function main() {
   const subcommand = process.argv[2];
@@ -20,6 +21,9 @@ function main() {
       break;
     case "add":
       addGit();
+      break;
+    case "commit":
+      commitGit();
       break;
     case "commit-gen":
       generateCommit();

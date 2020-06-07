@@ -1,6 +1,11 @@
 const { spawn } = require("child_process");
 const { logError } = require("../../helpers/error-helper");
 
+async function commitGit() {
+  const subcommand = process.argv[3];
+  await commit(subcommand);
+}
+
 function commit(message) {
   return new Promise((resolve, reject) => {
     const child = spawn("git", ["commit", "-am", message]);
@@ -23,4 +28,5 @@ function commit(message) {
 
 module.exports = {
   commit,
+  commitGit
 };
