@@ -24,13 +24,15 @@ async function generateCommit() {
     if (contributorOption) {
       contributors = getContributors(contributorOption + 1);
     }
-    console.log(contributors);
     for (var i = 0; i < amount; i++) {
-      await writeFile(filePath, i);
       if (contributorOption && contributors.length) {
         await configUserEmail(contributors);
+        await writeFile(filePath, i);
+        await commit("Gitlestial Commit-Gen");
+      } else {
+        await writeFile(filePath, i);
+        await commit("Gitlestial Commit-Gen");
       }
-      await commit("Gitlestial Commit-Gen");
     }
   } catch (ex) {
     logError(ex);
@@ -58,7 +60,7 @@ function configUserEmail(contributors) {
       return reject();
     }
     const child = spawn("git", [
-      "--config",
+      "config",
       "user.email",
       contributors[getRandomNumber(contributors.length)],
     ]);
