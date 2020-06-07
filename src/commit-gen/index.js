@@ -32,8 +32,10 @@ async function generateCommit() {
     await removeFile(".commit").then(async() => {
       await removeGit(filePath);
       console.log("Now do git push -f to your repository and voila!");
-    }).catch((err) => {
+    }).catch(async (err) => {
       logError(err);
+      await removeGit(filePath);
+      console.log("Now do git push -f to your repository and voila!");
     });
   }
 }
