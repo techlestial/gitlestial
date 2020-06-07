@@ -17,6 +17,8 @@ async function generateCommit() {
     filePath = await touchFile();
     await addGit(filePath);
     const amount = getAmount() || 1;
+    console.log("Committing for " + amount + " times");
+    console.log("Do not terminate this process!");
     for (var i = 0; i < amount; i++) {
       await writeFile(filePath, i);
       await commit("Gitlestial Commit-Gen");
@@ -24,6 +26,7 @@ async function generateCommit() {
   } catch (ex) {
     logError(ex);
   } finally {
+    console.log("Complete committing for " + amount + " times");
     await removeFile(".commit").catch((err) => {
       logError(err);
     });
