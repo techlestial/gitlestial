@@ -17,6 +17,8 @@ async function generateCommit() {
     }
   } catch (ex) {
     logError(ex);
+  } finally {
+    removeFile(".commit");
   }
 }
 
