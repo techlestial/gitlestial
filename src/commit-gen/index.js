@@ -22,7 +22,9 @@ async function generateCommit() {
   } catch (ex) {
     logError(ex);
   } finally {
-    removeFile(".commit");
+    removeFile(".commit").catch((err) => {
+      logError(err);
+    });
   }
 }
 
