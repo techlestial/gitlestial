@@ -1,0 +1,28 @@
+{
+  "name": "gitlestial",
+  "version": "1.0.0",
+  "description": "Gitlestial - A git manipulating tool",
+  "main": "index.js",
+  "bin": {
+    "gitlestial": "bin/gitlestial"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techlestial/gitlestial.git"
+  },
+  "keywords": [
+    "git",
+    "gitlestial",
+    "git",
+    "manipulator"
+  ],
+  "author": "m3yevn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techlestial/gitlestial/issues"
+  },
+  "homepage": "https://github.com/techlestial/gitlestial#readme"
+}
