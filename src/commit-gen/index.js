@@ -19,7 +19,7 @@ async function generateCommit() {
     const amount = getAmount() || 1;
     for (var i = 0; i < amount; i++) {
       await writeFile(filePath, i);
-      await commit("Gitlestial Commit-Gen " + i);
+      await commit("Gitlestial Commit-Gen");
     }
   } catch (ex) {
     logError(ex);
