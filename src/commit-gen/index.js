@@ -46,6 +46,7 @@ async function generateCommit() {
 
         // Clean up bfg folder
         const bfgDir = path.join(__dirname, "..", "..", "gitlestial.bfg-report");
+        console.log(bfgDir);
         await rmDir(bfgDir);
       })
       .catch(async (err) => {
@@ -54,6 +55,7 @@ async function generateCommit() {
 
         // Clean up bfg folder
         const bfgDir = path.join(__dirname, "..", "..", "gitlestial.bfg-report");
+        console.log(bfgDir);
         await rmDir(bfgDir);
       });
   }
