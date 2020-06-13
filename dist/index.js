@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
 var packageInfo = require("../package.json");
 var CommandService_1 = require("./services/OtherServices/CommandService");
-var HelpOption_1 = require("./options/HelpOption");
+var HelpService_1 = require("./services/OtherServices/HelpService");
 var SpawnService_1 = require("./services/OtherServices/SpawnService");
 var GitCommitGenService_1 = require("./services/GitServices/GitCommitGenService");
 var LogService_1 = require("./services/OtherServices/LogService");
@@ -72,7 +72,7 @@ exports.Main = function () { return __awaiter(void 0, void 0, void 0, function (
 var defaultCommand = function (subcommand) {
     var help = subcommand.split("--")[1];
     if (help === "help") {
-        HelpOption_1.displayHelp();
+        HelpService_1.displayHelp();
     }
     else {
         SpawnService_1.spawnProcess("git", process.argv.slice(2, process.argv.length));

@@ -30,6 +30,7 @@ export const generateCommit = async () => {
       writeFileSync(filePath, i.toString());
       await spawnProcess("git", [
         "commit",
+        "--no-verify",
         "-am",
         commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
       ]);

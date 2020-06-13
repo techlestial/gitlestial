@@ -84,6 +84,7 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                 fs_1.writeFileSync(filePath, i.toString());
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", [
                         "commit",
+                        "--no-verify",
                         "-am",
                         commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
                     ])];
@@ -158,7 +159,7 @@ var cleanUpBfg = function () { return __awaiter(void 0, void 0, void 0, function
                 ex_3 = _a.sent();
                 return [3 /*break*/, 4];
             case 3:
-                LogService_1.logInfo("Now do git push -f to your repository and voila!");
+                LogService_1.logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
                 return [7 /*endfinally*/];
             case 4: return [2 /*return*/];
         }
