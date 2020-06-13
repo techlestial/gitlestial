@@ -7,7 +7,8 @@
     "gitlestial": "bin/gitlestial"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,10 @@
     "url": "https://github.com/techlestial/gitlestial/issues"
   },
   "homepage": "https://github.com/techlestial/gitlestial#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.0.12",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
 }
