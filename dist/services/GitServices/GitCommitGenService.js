@@ -131,16 +131,9 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
                     .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
                     ".bfg-report";
                 bfgPath_1 = parentPath + bfgFolder;
-                setTimeout(function () { return __awaiter(void 0, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, DirectoryService_1.removeDirectory(bfgPath_1)];
-                            case 1:
-                                _a.sent();
-                                return [2 /*return*/];
-                        }
-                    });
-                }); }, 1000); //BFG report will come out with a delay so does the cleaning
+                setTimeout(function () {
+                    DirectoryService_1.removeDirectory(bfgPath_1);
+                }, 2000); //BFG report will come out with a delay so does the cleaning
                 LogService_1.logInfo("Now do git push -f to your repository and voila!");
                 return [3 /*break*/, 4];
             case 3:
