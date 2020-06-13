@@ -1,20 +1,19 @@
-import { existsSync, statSync, unlinkSync, rmdirSync, readdirSync } from "fs";
 import { logInfo } from "./LogService";
+import rimraf from "rimraf";
+import { exists } from "fs";
 
 export const removeDirectory = (path: string) => {
-  if (existsSync(path)) {
-    const files = readdirSync(path);
-    if (files.length > 0) {
-      files.forEach(function (filename) {
-        if (statSync(path + "/" + filename).isDirectory()) {
-          removeDirectory(path + "/" + filename);
-        } else {
-          unlinkSync(path + "/" + filename);
-        }
-      });
-      rmdirSync(path);
-    } else {
-      rmdirSync(path);
-    }
-  }
+  return new Promise((resolve, reject) => {
+    exists(path, (isExists) => {
+      if (isExists) {
+        rimraf(path, (hasError) => {
+          if (hasError) {
+            return reject();
+          }
+          return resolve();
+        });
+      }
+      return reject();
+    });
+  });
 };

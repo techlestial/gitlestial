@@ -2,7 +2,6 @@ import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError } from "../OtherServices/LogService";
 import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync } from "fs";
-import * as path from "path";
 import { removeDirectory } from "../OtherServices/DirectoryService";
 
 const folderName = ".gitlestial";
@@ -55,14 +54,12 @@ const cleanUp = async (amount: number) => {
   ]);
   await spawnProcess("git", ["rm", "-f", filePath]);
   // Clean up bfg folder
-  const bfgDir = path.join(
-    __dirname,
-    "..",
-    "..",
-    "..",
-    "gitlestial.bfg-report"
-  );
-  removeDirectory(bfgDir);
+  const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+  const bfgFolder =
+    process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+    ".bfg-report";
+  const bfgPath = parentPath + bfgFolder;
+  logInfo(bfgPath);
   logInfo("Now do git push -f to your repository and voila!");
 };
 

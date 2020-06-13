@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -60,8 +41,6 @@ var SpawnService_1 = require("../OtherServices/SpawnService");
 var LogService_1 = require("../OtherServices/LogService");
 var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
-var path = __importStar(require("path"));
-var DirectoryService_1 = require("../OtherServices/DirectoryService");
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
@@ -129,7 +108,7 @@ var getRandomNumber = function (maxNum) {
     return Math.floor(Math.random() * maxNum);
 };
 var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, function () {
-    var bfgDir;
+    var parentPath, bfgFolder, bfgPath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -144,8 +123,11 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 2:
                 _a.sent();
-                bfgDir = path.join(__dirname, "..", "..", "..", "gitlestial.bfg-report");
-                DirectoryService_1.removeDirectory(bfgDir);
+                parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+                bfgFolder = process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+                    ".bfg-report";
+                bfgPath = parentPath + bfgFolder;
+                LogService_1.logInfo(bfgPath);
                 LogService_1.logInfo("Now do git push -f to your repository and voila!");
                 return [2 /*return*/];
         }
