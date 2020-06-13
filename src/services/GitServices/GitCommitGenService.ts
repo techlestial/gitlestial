@@ -7,7 +7,7 @@ import { removeDirectory } from "../OtherServices/DirectoryService";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
-const filePath = process.cwd() + `/${folderName}/` +fileName;
+const filePath = process.cwd() + `/${folderName}/` + fileName;
 
 export const generateCommit = async () => {
   let amount: number = 1,
@@ -19,16 +19,21 @@ export const generateCommit = async () => {
     amount = getAmount();
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
-    const contributorOption = CheckIfArgIncludes("--contributors");
-    if (contributorOption) {
-      contributors = getContributors(contributorOption + 1);
+    const hasContributors = CheckIfArgIncludes("--contributors");
+    const commitMessage = CheckIfArgIncludes("-m");
+    if (hasContributors) {
+      contributors = getContributors(hasContributors);
     }
     for (var i = 0; i < amount; i++) {
-      if (contributorOption && contributors.length) {
+      if (hasContributors && contributors.length) {
         await setConfigUserEmail(contributors);
       }
       writeFileSync(filePath, i.toString());
-      await spawnProcess("git", ["commit", "Gitlestial Commit-gen"]);
+      await spawnProcess("git", [
+        "commit",
+        "-am",
+        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+      ]);
     }
   } catch (ex) {
     logError(ex);
@@ -48,7 +53,7 @@ const cleanUp = async (amount: number) => {
     fileName,
     "--no-blob-protection",
   ]);
-  await spawnProcess("git", ["rm","-f", filePath]);
+  await spawnProcess("git", ["rm", "-f", filePath]);
   // Clean up bfg folder
   const bfgDir = path.join(
     __dirname,
@@ -76,11 +81,8 @@ const setConfigUserEmail = (contributors: string[]) => {
   });
 };
 
-const getContributors = (contribIndex: number): string[] => {
-  if (!process.argv[contribIndex]) {
-    return [];
-  }
-  const contributors = process.argv[contribIndex].split(",");
+const getContributors = (contributorsWithComma: string): string[] => {
+  const contributors = contributorsWithComma.split(",");
   return contributors;
 };
 

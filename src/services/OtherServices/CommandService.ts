@@ -3,7 +3,7 @@ import { logError } from "./LogService";
 
 export const CheckIfArgIncludes = (arg: string) => {
   if (process.argv.includes(arg)) {
-    return process.argv.indexOf(arg);
+    return process.argv[process.argv.indexOf(arg) + 1];
   }
   return false;
 };

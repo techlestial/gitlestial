@@ -66,7 +66,7 @@ var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
 exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var amount, contributors, contributorOption, i, ex_1;
+    var amount, contributors, hasContributors, commitMessage, i, ex_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -86,22 +86,27 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                 amount = getAmount();
                 LogService_1.logInfo("Committing for " + amount + " times");
                 LogService_1.logInfo("Do not terminate this process!");
-                contributorOption = CommandService_1.CheckIfArgIncludes("--contributors");
-                if (contributorOption) {
-                    contributors = getContributors(contributorOption + 1);
+                hasContributors = CommandService_1.CheckIfArgIncludes("--contributors");
+                commitMessage = CommandService_1.CheckIfArgIncludes("-m");
+                if (hasContributors) {
+                    contributors = getContributors(hasContributors);
                 }
                 i = 0;
                 _a.label = 5;
             case 5:
                 if (!(i < amount)) return [3 /*break*/, 10];
-                if (!(contributorOption && contributors.length)) return [3 /*break*/, 7];
+                if (!(hasContributors && contributors.length)) return [3 /*break*/, 7];
                 return [4 /*yield*/, setConfigUserEmail(contributors)];
             case 6:
                 _a.sent();
                 _a.label = 7;
             case 7:
                 fs_1.writeFileSync(filePath, i.toString());
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["commit", "Gitlestial Commit-gen"])];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", [
+                        "commit",
+                        "-am",
+                        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+                    ])];
             case 8:
                 _a.sent();
                 _a.label = 9;
@@ -160,11 +165,8 @@ var setConfigUserEmail = function (contributors) {
             .catch(function () { return reject(); });
     });
 };
-var getContributors = function (contribIndex) {
-    if (!process.argv[contribIndex]) {
-        return [];
-    }
-    var contributors = process.argv[contribIndex].split(",");
+var getContributors = function (contributorsWithComma) {
+    var contributors = contributorsWithComma.split(",");
     return contributors;
 };
 var getAmount = function () {
