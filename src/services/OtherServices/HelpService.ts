@@ -1,4 +1,4 @@
-import { logInfo } from "../services/OtherServices/LogService";
+import { logInfo } from "./LogService";
 
 export const displayHelp = () => {
   logInfo(`
