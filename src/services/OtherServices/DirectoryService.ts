@@ -8,12 +8,12 @@ export const removeDirectory = (path: string) => {
       if (isExists) {
         rimraf(path, (hasError) => {
           if (hasError) {
-            return reject();
+            return reject(hasError);
           }
-          return resolve();
+          return resolve(true);
         });
       }
-      return reject();
+      return reject(path+" does not exist");
     });
   });
 };
