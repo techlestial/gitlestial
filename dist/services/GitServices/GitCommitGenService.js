@@ -125,8 +125,10 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 2:
                 _a.sent();
-                // Clean up bfg folder
-                cleanUpBfg();
+                // Clean up bfg folder with a delay
+                setTimeout(function () {
+                    cleanUpBfg();
+                }, 1000);
                 return [3 /*break*/, 4];
             case 3:
                 ex_2 = _a.sent();

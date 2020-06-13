@@ -54,8 +54,10 @@ const cleanUpGitCommitFile = async (amount: number) => {
       "--no-blob-protection",
     ]);
     await spawnProcess("git", ["rm", "-f", filePath]);
-    // Clean up bfg folder
-    cleanUpBfg();
+    // Clean up bfg folder with a delay
+    setTimeout(() => {
+      cleanUpBfg();
+    },1000);
   } catch (ex) {
     logError(ex);
   }
