@@ -1,6 +1,6 @@
 const packageInfo = require("../package.json");
 import { CheckIfCommandExists } from "./services/OtherServices/CommandService";
-import { displayHelp } from "./options/HelpOption";
+import { displayHelp } from "./services/OtherServices/HelpService";
 import { spawnProcess } from "./services/OtherServices/SpawnService";
 import { generateCommit } from "./services/GitServices/GitCommitGenService";
 import { logInfo } from "./services/OtherServices/LogService";
