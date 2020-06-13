@@ -41,6 +41,7 @@ var SpawnService_1 = require("../OtherServices/SpawnService");
 var LogService_1 = require("../OtherServices/LogService");
 var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
+var DirectoryService_1 = require("../OtherServices/DirectoryService");
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
@@ -127,7 +128,9 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
                 bfgFolder = process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
                     ".bfg-report";
                 bfgPath = parentPath + bfgFolder;
-                LogService_1.logInfo(bfgPath);
+                return [4 /*yield*/, DirectoryService_1.removeDirectory(bfgPath)];
+            case 3:
+                _a.sent();
                 LogService_1.logInfo("Now do git push -f to your repository and voila!");
                 return [2 /*return*/];
         }
