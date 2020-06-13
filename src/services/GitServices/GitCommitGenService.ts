@@ -62,7 +62,9 @@ const cleanUp = async (amount: number) => {
         .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
       ".bfg-report";
     const bfgPath = parentPath + bfgFolder;
-    await removeDirectory(bfgPath);
+    setTimeout(async () => {
+      await removeDirectory(bfgPath);
+    }, 1000); //BFG report will come out with a delay so does the cleaning
     logInfo("Now do git push -f to your repository and voila!");
   } catch (ex) {
     logError(ex);
