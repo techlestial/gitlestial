@@ -37,7 +37,7 @@ export const generateCommit = async () => {
   } catch (ex) {
     logError(ex);
   } finally {
-    cleanUp(amount);
+    cleanUpGitCommitFile(amount);
   }
 };
 
@@ -45,7 +45,7 @@ const getRandomNumber = (maxNum: number) => {
   return Math.floor(Math.random() * maxNum);
 };
 
-const cleanUp = async (amount: number) => {
+const cleanUpGitCommitFile = async (amount: number) => {
   try {
     logInfo("Complete committing for " + amount + " times");
     await spawnProcess("bfg", [
@@ -55,25 +55,29 @@ const cleanUp = async (amount: number) => {
     ]);
     await spawnProcess("git", ["rm", "-f", filePath]);
     // Clean up bfg folder
-    const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-    const bfgFolder =
-      process
-        .cwd()
-        .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-      ".bfg-report";
-    const bfgPath = parentPath + bfgFolder;
-    setTimeout(() => {
-      try {
-        removeDirectory(bfgPath);
-      } catch (ex) {
-        logError(ex);
-      }
-    }, 2000); //BFG report will come out with a delay so does the cleaning
-    logInfo("Now do git push -f to your repository and voila!");
+    cleanUpBfg();
   } catch (ex) {
     logError(ex);
   }
 };
+
+const cleanUpBfg = async() => {
+  try {
+  const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+  const bfgFolder =
+    process
+      .cwd()
+      .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+    ".bfg-report";
+  const bfgPath = parentPath + bfgFolder;
+  await removeDirectory(bfgPath);
+  }
+  catch (ex) {
+    //do nothing
+  } finally {
+    logInfo("Now do git push -f to your repository and voila!");
+  }
+}
 
 const setConfigUserEmail = (contributors: string[]) => {
   return new Promise((resolve, reject) => {

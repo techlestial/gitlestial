@@ -99,7 +99,7 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                 LogService_1.logError(ex_1);
                 return [3 /*break*/, 13];
             case 12:
-                cleanUp(amount);
+                cleanUpGitCommitFile(amount);
                 return [7 /*endfinally*/];
             case 13: return [2 /*return*/];
         }
@@ -108,8 +108,8 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
 var getRandomNumber = function (maxNum) {
     return Math.floor(Math.random() * maxNum);
 };
-var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, function () {
-    var parentPath, bfgFolder, bfgPath_1, ex_2;
+var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, void 0, function () {
+    var ex_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -125,26 +125,39 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 2:
                 _a.sent();
-                parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-                bfgFolder = process
-                    .cwd()
-                    .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-                    ".bfg-report";
-                bfgPath_1 = parentPath + bfgFolder;
-                setTimeout(function () {
-                    try {
-                        DirectoryService_1.removeDirectory(bfgPath_1);
-                    }
-                    catch (ex) {
-                        LogService_1.logError(ex);
-                    }
-                }, 2000); //BFG report will come out with a delay so does the cleaning
-                LogService_1.logInfo("Now do git push -f to your repository and voila!");
+                // Clean up bfg folder
+                cleanUpBfg();
                 return [3 /*break*/, 4];
             case 3:
                 ex_2 = _a.sent();
                 LogService_1.logError(ex_2);
                 return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+var cleanUpBfg = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var parentPath, bfgFolder, bfgPath, ex_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, 3, 4]);
+                parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+                bfgFolder = process
+                    .cwd()
+                    .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+                    ".bfg-report";
+                bfgPath = parentPath + bfgFolder;
+                return [4 /*yield*/, DirectoryService_1.removeDirectory(bfgPath)];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 4];
+            case 2:
+                ex_3 = _a.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                LogService_1.logInfo("Now do git push -f to your repository and voila!");
+                return [7 /*endfinally*/];
             case 4: return [2 /*return*/];
         }
     });
