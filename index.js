@@ -17,19 +17,8 @@ async function main() {
       return;
     }
 
-    const gitTest = await testCommand("git");
-    if (!gitTest) {
-      throw new Error(
-        "Git CLI is not installed. Please install git cli from https://git-scm.com/downloads"
-      );
-    }
-
-    const bfgTest = await testCommand("bfg");
-    if (!bfgTest) {
-      throw new Error(
-        "Bfg CLI is not installed. Please install bfg cli from https://rtyley.github.io/bfg-repo-cleaner/"
-      );
-    }
+    await testCommand("git");
+    await testCommand("bfg");
 
     switch (subcommand) {
       case "init":

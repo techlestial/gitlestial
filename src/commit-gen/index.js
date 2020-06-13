@@ -8,7 +8,8 @@ const {
   touchFile,
   removeFile,
 } = require("../../helpers/file-helper");
-const { mkDir } = require("../../helpers/dir-helper");
+const path = require("path");
+const { mkDir, rmDir } = require("../../helpers/dir-helper");
 const { checkArg } = require("../../helpers/command-helper");
 
 async function generateCommit() {
@@ -42,10 +43,18 @@ async function generateCommit() {
       .then(async () => {
         await removeGit(filePath);
         console.log("Now do git push -f to your repository and voila!");
+
+        // Clean up bfg folder
+        const bfgDir = path.join(__dirname, "..", "..", "..", "gitlestial.bfg-report");
+        await rmDir(bfgDir);
       })
       .catch(async (err) => {
         await removeGit(filePath);
         console.log("Now do git push -f to your repository and voila!");
+
+        // Clean up bfg folder
+        const bfgDir = path.join(__dirname, "..", "..", "..", "gitlestial.bfg-report");
+        await rmDir(bfgDir);
       });
   }
 }
