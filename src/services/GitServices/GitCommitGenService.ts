@@ -77,7 +77,7 @@ const cleanUpBfg = async() => {
   catch (ex) {
     //do nothing
   } finally {
-    logInfo("Now do git push -f to your repository and voila!");
+    logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
   }
 }
 
