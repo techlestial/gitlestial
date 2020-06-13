@@ -132,7 +132,12 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
                     ".bfg-report";
                 bfgPath_1 = parentPath + bfgFolder;
                 setTimeout(function () {
-                    DirectoryService_1.removeDirectory(bfgPath_1);
+                    try {
+                        DirectoryService_1.removeDirectory(bfgPath_1);
+                    }
+                    catch (ex) {
+                        LogService_1.logError(ex);
+                    }
                 }, 2000); //BFG report will come out with a delay so does the cleaning
                 LogService_1.logInfo("Now do git push -f to your repository and voila!");
                 return [3 /*break*/, 4];
