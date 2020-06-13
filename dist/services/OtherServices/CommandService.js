@@ -36,47 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Main = void 0;
-var packageInfo = require("../package.json");
-var CommandService_1 = require("./services/OtherServices/CommandService");
-var HelpOption_1 = require("./options/HelpOption");
-var SpawnService_1 = require("./services/OtherServices/SpawnService");
-var GitCommitGenService_1 = require("./services/GitServices/GitCommitGenService");
-var LogService_1 = require("./services/OtherServices/LogService");
-exports.Main = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var subcommand;
+exports.CheckIfCommandExists = exports.CheckIfArgIncludes = void 0;
+var SpawnService_1 = require("./SpawnService");
+var LogService_1 = require("./LogService");
+exports.CheckIfArgIncludes = function (arg) {
+    if (process.argv.includes(arg)) {
+        return process.argv.indexOf(arg);
+    }
+    return false;
+};
+exports.CheckIfCommandExists = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var gitTest, bfgTest, ex_1;
     return __generator(this, function (_a) {
-        try {
-            subcommand = process.argv[2];
-            if (!subcommand) {
-                console.log("Gitlestial - Version: " + packageInfo.version);
-                console.log("Use gitlestial --help for viewing all the available commands.");
-                return [2 /*return*/];
-            }
-            CommandService_1.CheckIfCommandExists();
-            switch (subcommand) {
-                case "commit-gen":
-                    GitCommitGenService_1.generateCommit();
-                    break;
-                default:
-                    defaultCommand(subcommand);
-                    break;
-            }
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git")];
+            case 1:
+                gitTest = _a.sent();
+                if (!gitTest) {
+                    throw new Error();
+                }
+                return [4 /*yield*/, SpawnService_1.spawnProcess("bfg")];
+            case 2:
+                bfgTest = _a.sent();
+                if (!bfgTest) {
+                    throw new Error();
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                ex_1 = _a.sent();
+                LogService_1.logError(new Error("Git and BFG needs to be installed in your system to get Gitlestial work.\r\n\n        Git cli can be installed from https://git-scm.com/downloads/\r\n\n        BFG cli can be installed from https://rtyley.github.io/bfg-repo-cleaner/"));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
-        catch (ex) {
-            LogService_1.logInfo(ex.message);
-        }
-        return [2 /*return*/];
     });
 }); };
-var defaultCommand = function (subcommand) {
-    var help = subcommand.split("--")[1];
-    if (help === "help") {
-        HelpOption_1.displayHelp();
-    }
-    else {
-        SpawnService_1.spawnProcess("git", process.argv.slice(2, process.argv.length));
-        //Passing commands to primitive Git CLI
-    }
-};
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=CommandService.js.map

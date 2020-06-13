@@ -1,56 +1,42 @@
-const package = require("./package.json");
-const { displayHelp } = require("./help");
-const { generateCommit } = require("./src/commit-gen");
-const { initGit } = require("./src/init");
-const { addGit } = require("./src/add");
-const { commitGit } = require("./src/commit");
-const { testCommand } = require("./helpers/command-helper");
+const packageInfo = require("../package.json");
+import { CheckIfCommandExists } from "./services/OtherServices/CommandService";
+import { displayHelp } from "./options/HelpOption";
+import { spawnProcess } from "./services/OtherServices/SpawnService";
+import { generateCommit } from "./services/GitServices/GitCommitGenService";
+import { logInfo } from "./services/OtherServices/LogService";
 
-async function main() {
+export const Main = async () => {
   try {
     const subcommand = process.argv[2];
     if (!subcommand) {
-      console.log("Gitlestial - Version: " + package.version);
+      console.log("Gitlestial - Version: " + packageInfo.version);
       console.log(
         "Use gitlestial --help for viewing all the available commands."
       );
       return;
     }
 
-    const gitTest = await testCommand("git");
-    if (!gitTest) {
-      throw new Error(
-        "Git CLI is not installed. Please install git cli from https://git-scm.com/downloads"
-      );
-    }
-
-    const bfgTest = await testCommand("bfg");
-    if (!bfgTest) {
-      throw new Error(
-        "Bfg CLI is not installed. Please install bfg cli from https://rtyley.github.io/bfg-repo-cleaner/"
-      );
-    }
+    CheckIfCommandExists();
 
     switch (subcommand) {
-      case "init":
-        initGit();
-        break;
-      case "add":
-        addGit();
-        break;
-      case "commit":
-        commitGit();
-        break;
       case "commit-gen":
         generateCommit();
         break;
       default:
-        displayHelp(subcommand);
+        defaultCommand(subcommand);
         break;
     }
   } catch (ex) {
-    console.log(ex.message);
+    logInfo(ex.message);
   }
-}
+};
 
-module.exports = main;
+const defaultCommand = (subcommand: string) => {
+  const help = subcommand.split("--")[1];
+  if (help === "help") {
+    displayHelp();
+  } else {
+    spawnProcess("git", process.argv.slice(2, process.argv.length));
+    //Passing commands to primitive Git CLI
+  }
+};

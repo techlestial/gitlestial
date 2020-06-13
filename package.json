@@ -1,14 +1,16 @@
 {
   "name": "@techlestial/gitlestial",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gitlestial - A git manipulating tool",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "bin": {
     "gitlestial": "bin/gitlestial"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc",
+    "debug": "ts-node ."
   },
   "repository": {
     "type": "git",
