@@ -10,7 +10,12 @@ function testCommand(command) {
       reject(error);
     });
     child.on("error", (error) => {
-      reject(error);
+      if (command === "git") {
+        console.log("Git CLI is not installed. Please install git cli from https://git-scm.com/downloads");
+      } else if (command === "bfg") {
+        console.log("Bfg CLI is not installed. Please install bfg cli from https://rtyley.github.io/bfg-repo-cleaner/");
+      }
+      // reject(error);
     });
   });
 }
