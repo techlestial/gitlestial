@@ -46,21 +46,27 @@ const getRandomNumber = (maxNum: number) => {
 };
 
 const cleanUp = async (amount: number) => {
-  logInfo("Complete committing for " + amount + " times");
-  await spawnProcess("bfg", [
-    "--delete-files",
-    fileName,
-    "--no-blob-protection",
-  ]);
-  await spawnProcess("git", ["rm", "-f", filePath]);
-  // Clean up bfg folder
-  const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-  const bfgFolder =
-    process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-    ".bfg-report";
-  const bfgPath = parentPath + bfgFolder;
-  await removeDirectory(bfgPath);
-  logInfo("Now do git push -f to your repository and voila!");
+  try {
+    logInfo("Complete committing for " + amount + " times");
+    await spawnProcess("bfg", [
+      "--delete-files",
+      fileName,
+      "--no-blob-protection",
+    ]);
+    await spawnProcess("git", ["rm", "-f", filePath]);
+    // Clean up bfg folder
+    const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+    const bfgFolder =
+      process
+        .cwd()
+        .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+      ".bfg-report";
+    const bfgPath = parentPath + bfgFolder;
+    await removeDirectory(bfgPath);
+    logInfo("Now do git push -f to your repository and voila!");
+  } catch (ex) {
+    logError(ex);
+  }
 };
 
 const setConfigUserEmail = (contributors: string[]) => {

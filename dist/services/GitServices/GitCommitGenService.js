@@ -109,10 +109,11 @@ var getRandomNumber = function (maxNum) {
     return Math.floor(Math.random() * maxNum);
 };
 var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, function () {
-    var parentPath, bfgFolder, bfgPath;
+    var parentPath, bfgFolder, bfgPath, ex_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 4, , 5]);
                 LogService_1.logInfo("Complete committing for " + amount + " times");
                 return [4 /*yield*/, SpawnService_1.spawnProcess("bfg", [
                         "--delete-files",
@@ -125,14 +126,21 @@ var cleanUp = function (amount) { return __awaiter(void 0, void 0, void 0, funct
             case 2:
                 _a.sent();
                 parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-                bfgFolder = process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+                bfgFolder = process
+                    .cwd()
+                    .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
                     ".bfg-report";
                 bfgPath = parentPath + bfgFolder;
                 return [4 /*yield*/, DirectoryService_1.removeDirectory(bfgPath)];
             case 3:
                 _a.sent();
                 LogService_1.logInfo("Now do git push -f to your repository and voila!");
-                return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 4:
+                ex_2 = _a.sent();
+                LogService_1.logError(ex_2);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
