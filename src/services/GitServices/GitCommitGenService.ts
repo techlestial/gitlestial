@@ -59,7 +59,7 @@ const cleanUp = async (amount: number) => {
     process.cwd().slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
     ".bfg-report";
   const bfgPath = parentPath + bfgFolder;
-  logInfo(bfgPath);
+  await removeDirectory(bfgPath);
   logInfo("Now do git push -f to your repository and voila!");
 };
 
