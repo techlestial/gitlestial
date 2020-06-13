@@ -1,6 +1,5 @@
-import { logInfo } from "./LogService";
 import rimraf from "rimraf";
-import { exists, existsSync } from "fs";
+import { existsSync } from "fs";
 
 export const removeDirectory = (path: string) => {
   return new Promise((resolve, reject) => {
