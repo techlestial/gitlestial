@@ -41,7 +41,7 @@ var SpawnService_1 = require("./SpawnService");
 var LogService_1 = require("./LogService");
 exports.CheckIfArgIncludes = function (arg) {
     if (process.argv.includes(arg)) {
-        return process.argv.indexOf(arg);
+        return process.argv[process.argv.indexOf(arg) + 1];
     }
     return false;
 };
