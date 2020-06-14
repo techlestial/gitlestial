@@ -58,7 +58,7 @@ const cleanUpGitCommitFile = async (amount: number) => {
     // Clean up bfg folder with a delay
     setTimeout(() => {
       cleanUpBfg();
-    }, 1500);
+    }, 2000);
   } catch (ex) {
     logError(ex);
   }
