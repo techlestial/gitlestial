@@ -129,7 +129,7 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
                 // Clean up bfg folder with a delay
                 setTimeout(function () {
                     cleanUpBfg();
-                }, 1500);
+                }, 2000);
                 return [3 /*break*/, 4];
             case 3:
                 ex_2 = _a.sent();
