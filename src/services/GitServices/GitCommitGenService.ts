@@ -76,7 +76,7 @@ const cleanUpBfg = async () => {
     const bfgPath = parentPath + bfgFolder;
     await removeDirectory(bfgPath);
   } catch (ex) {
-    logInfo(ex);
+    //logInfo(ex);
   } finally {
     logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
   }
