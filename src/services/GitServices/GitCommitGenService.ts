@@ -58,29 +58,29 @@ const cleanUpGitCommitFile = async (amount: number) => {
     // Clean up bfg folder with a delay
     setTimeout(() => {
       cleanUpBfg();
-    },1500);
+    }, 1500);
   } catch (ex) {
     logError(ex);
   }
 };
 
-const cleanUpBfg = async() => {
+const cleanUpBfg = async () => {
   try {
-  const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-  const bfgFolder =
-    process
-      .cwd()
-      .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-    ".bfg-report";
-  const bfgPath = parentPath + bfgFolder;
-  await removeDirectory(bfgPath);
-  }
-  catch (ex) {
-    //do nothing
+    logInfo("Cleaning up...");
+    const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
+    const bfgFolder =
+      process
+        .cwd()
+        .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
+      ".bfg-report";
+    const bfgPath = parentPath + bfgFolder;
+    await removeDirectory(bfgPath);
+  } catch (ex) {
+    logInfo(ex.message);
   } finally {
     logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
   }
-}
+};
 
 const setConfigUserEmail = (contributors: string[]) => {
   return new Promise((resolve, reject) => {

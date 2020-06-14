@@ -145,6 +145,7 @@ var cleanUpBfg = function () { return __awaiter(void 0, void 0, void 0, function
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, 3, 4]);
+                LogService_1.logInfo("Cleaning up...");
                 parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
                 bfgFolder = process
                     .cwd()
@@ -157,6 +158,7 @@ var cleanUpBfg = function () { return __awaiter(void 0, void 0, void 0, function
                 return [3 /*break*/, 4];
             case 2:
                 ex_3 = _a.sent();
+                LogService_1.logInfo(ex_3.message);
                 return [3 /*break*/, 4];
             case 3:
                 LogService_1.logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
