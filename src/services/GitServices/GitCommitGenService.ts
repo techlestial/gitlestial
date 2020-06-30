@@ -23,8 +23,6 @@ export const generateCommit = async () => {
     if (hasContributors) {
       contributors = getContributors(hasContributors);
     }
-    const resultCheck = await spawnProcess("echo", [".gitlestial/", ">>", ".gitignore"]);
-    console.log(resultCheck);
     for (var i = 0; i < amount; i++) {
       if (hasContributors && contributors.length) {
         await setConfigUserEmail(contributors);
