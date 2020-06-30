@@ -113,27 +113,27 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _a.trys.push([0, 3, 4, 5]);
                 LogService_1.logInfo("Complete committing for " + amount + " times");
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", [
-                        "filter-branch",
-                        "--force",
-                        "--index-filter",
-                        "'git rm --cached --ignore-unmatch " + filePath + "'",
-                        "--prune-empty",
-                        "--tag-name-filter",
-                        "cat",
-                        "--",
-                        "--all",
+                return [4 /*yield*/, SpawnService_1.spawnProcess("bfg", [
+                        "--delete-files",
+                        fileName,
+                        "--no-blob-protection",
                     ])];
             case 1:
                 _a.sent();
-                return [3 /*break*/, 3];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 2:
+                _a.sent();
+                return [3 /*break*/, 5];
+            case 3:
                 ex_2 = _a.sent();
                 LogService_1.logError(ex_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 4:
+                LogService_1.logInfo("Now do git push to your repository and voila!");
+                return [7 /*endfinally*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
