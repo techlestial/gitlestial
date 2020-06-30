@@ -57,6 +57,8 @@ const cleanUpGitCommitFile = async (amount: number) => {
     await spawnProcess("git", ["rm", "-f", filePath]);
   } catch (ex) {
     logError(ex);
+  } finally {
+    logInfo("Now do git push to your repository and voila!");
   }
 };
 
