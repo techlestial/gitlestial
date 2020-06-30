@@ -196,8 +196,8 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
                 LogService_1.logError(ex_2);
                 return [3 /*break*/, 5];
             case 4:
-                LogService_1.logInfo("Complete committing for " + amount + " times");
-                LogService_1.logInfo("Now do git push to your repository and voila!");
+                LogService_1.logSuccess("Complete committing for " + amount + " times");
+                LogService_1.logSuccess("Now do git push to your repository and voila!");
                 return [7 /*endfinally*/];
             case 5: return [2 /*return*/];
         }
