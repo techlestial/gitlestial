@@ -32,8 +32,8 @@ export const generateCommit = async () => {
       contributors = getContributors(hasContributors);
     }
 
-    for (var i = 0; i < amount; i++) {
-      amountPercentageLoader(i, amount);
+    for (var i = 0; i < amount - 1; i++) {
+      amountPercentageLoader(i, amount-1);
       if (hasContributors && contributors.length) {
         await setConfigUserEmail(contributors);
       }
@@ -123,6 +123,7 @@ const getRandomNumber = (maxNum: number) => {
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
     await spawnProcess("git", ["rm", "-f", filePath]);
+    await spawnProcess("git", ["commit", "-am", "complete: gitlestial"]);
   } catch (ex) {
     logError(ex);
   } finally {
