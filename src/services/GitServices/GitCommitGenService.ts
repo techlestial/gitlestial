@@ -1,8 +1,7 @@
 import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError } from "../OtherServices/LogService";
 import { CheckIfArgIncludes } from "../OtherServices/CommandService";
-import { writeFileSync } from "fs";
-import { removeDirectory } from "../OtherServices/DirectoryService";
+import { writeFileSync, existsSync } from "fs";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
@@ -12,8 +11,12 @@ export const generateCommit = async () => {
   let amount: number = 1,
     contributors: string[] = [];
   try {
-    await spawnProcess("mkdir", [folderName]);
-    await spawnProcess("touch", [filePath]);
+    if(!existsSync(folderName)){
+      await spawnProcess("mkdir", [folderName]);
+    }
+    if(!existsSync(filePath)){
+      await spawnProcess("touch", [filePath]);
+    }
     await spawnProcess("git", ["add", filePath]);
     amount = getAmount();
     logInfo("Committing for " + amount + " times");
