@@ -1,5 +1,5 @@
 import { spawnProcess } from "../OtherServices/SpawnService";
-import { logInfo, logError } from "../OtherServices/LogService";
+import { logInfo, logError, logSuccess } from "../OtherServices/LogService";
 import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync, existsSync } from "fs";
 import { LoadService } from "../OtherServices/LoadService";
@@ -108,8 +108,8 @@ const cleanUpGitCommitFile = async (amount: number) => {
   } catch (ex) {
     logError(ex);
   } finally {
-    logInfo("Complete committing for " + amount + " times");
-    logInfo("Now do git push to your repository and voila!");
+    logSuccess("Complete committing for " + amount + " times");
+    logSuccess("Now do git push to your repository and voila!");
   }
 };
 
