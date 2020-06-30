@@ -49,7 +49,7 @@ const getRandomNumber = (maxNum: number) => {
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
     logInfo("Complete committing for " + amount + " times");
-    await spawnProcess("git", [
+    const checkResult = await spawnProcess("git", [
       "filter-branch",
       "--force",
       "--index-filter",
@@ -60,6 +60,7 @@ const cleanUpGitCommitFile = async (amount: number) => {
       "--",
       "--all",
     ]);
+    console.log(checkResult)
   } catch (ex) {
     logError(ex);
   }
