@@ -122,16 +122,11 @@ const getRandomNumber = (maxNum: number) => {
 
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
-    logInfo("Complete committing for " + amount + " times");
-    await spawnProcess("bfg", [
-      "--delete-files",
-      fileName,
-      "--no-blob-protection",
-    ]);
     await spawnProcess("git", ["rm", "-f", filePath]);
   } catch (ex) {
     logError(ex);
   } finally {
+    logInfo("Complete committing for " + amount + " times");
     logInfo("Now do git push to your repository and voila!");
   }
 };
