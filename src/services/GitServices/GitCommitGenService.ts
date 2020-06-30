@@ -56,62 +56,43 @@ export const generateCommit = async () => {
 const amountPercentageLoader = (current: number, limit: number) => {
   if (current <= limit * 0.05) {
     loader.load(1);
-  }
-  if (current <= limit * 0.1) {
+  } else if (current <= limit * 0.1) {
     loader.load(2);
-  }
-  if (current <= limit * 0.15) {
+  } else if (current <= limit * 0.15) {
     loader.load(3);
-  }
-  if (current <= limit * 0.2) {
+  } else if (current <= limit * 0.2) {
     loader.load(4);
-  }
-  if (current <= limit * 0.25) {
+  } else if (current <= limit * 0.25) {
     loader.load(5);
-  }
-  if (current <= limit * 0.3) {
+  } else if (current <= limit * 0.3) {
     loader.load(6);
-  }
-  if (current <= limit * 0.35) {
+  } else if (current <= limit * 0.35) {
     loader.load(7);
-  }
-  if (current <= limit * 0.4) {
+  } else if (current <= limit * 0.4) {
     loader.load(8);
-  }
-  if (current <= limit * 0.45) {
+  } else if (current <= limit * 0.45) {
     loader.load(9);
-  }
-  if (current <= limit * 0.5) {
+  } else if (current <= limit * 0.5) {
     loader.load(10);
-  }
-  if (current <= limit * 0.55) {
+  } else if (current <= limit * 0.55) {
     loader.load(11);
-  }
-  if (current <= limit * 0.6) {
+  } else if (current <= limit * 0.6) {
     loader.load(12);
-  }
-  if (current <= limit * 0.65) {
+  } else if (current <= limit * 0.65) {
     loader.load(13);
-  }
-  if (current <= limit * 0.7) {
+  } else if (current <= limit * 0.7) {
     loader.load(14);
-  }
-  if (current <= limit * 0.75) {
+  } else if (current <= limit * 0.75) {
     loader.load(15);
-  }
-  if (current <= limit * 0.8) {
+  } else if (current <= limit * 0.8) {
     loader.load(16);
-  }
-  if (current <= limit * 0.85) {
+  } else if (current <= limit * 0.85) {
     loader.load(17);
-  }
-  if (current <= limit * 0.9) {
+  } else if (current <= limit * 0.9) {
     loader.load(18);
-  }
-  if (current <= limit * 0.95) {
+  } else if (current <= limit * 0.95) {
     loader.load(19);
-  }
-  if (current <= limit) {
+  } else if (current <= limit) {
     loader.load(20);
   }
 };
