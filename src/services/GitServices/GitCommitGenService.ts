@@ -23,6 +23,7 @@ export const generateCommit = async () => {
     if (hasContributors) {
       contributors = getContributors(hasContributors);
     }
+    await spawnProcess("echo", [".gitlestial/", ">>", ".gitignore"]);
     for (var i = 0; i < amount; i++) {
       if (hasContributors && contributors.length) {
         await setConfigUserEmail(contributors);
@@ -49,18 +50,7 @@ const getRandomNumber = (maxNum: number) => {
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
     logInfo("Complete committing for " + amount + " times");
-    const checkResult = await spawnProcess("git", [
-      "filter-branch",
-      "--force",
-      "--index-filter",
-      `'git rm --cached --ignore-unmatch ${filePath}'`,
-      "--prune-empty",
-      "--tag-name-filter",
-      "cat",
-      "--",
-      "--all",
-    ]);
-    console.log(checkResult)
+    await spawnProcess("git", ["rm", "-f", filePath]);
   } catch (ex) {
     logError(ex);
   }
