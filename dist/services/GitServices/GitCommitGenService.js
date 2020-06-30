@@ -41,7 +41,6 @@ var SpawnService_1 = require("../OtherServices/SpawnService");
 var LogService_1 = require("../OtherServices/LogService");
 var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
-var DirectoryService_1 = require("../OtherServices/DirectoryService");
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
@@ -114,55 +113,27 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 LogService_1.logInfo("Complete committing for " + amount + " times");
-                return [4 /*yield*/, SpawnService_1.spawnProcess("bfg", [
-                        "--delete-files",
-                        fileName,
-                        "--no-blob-protection",
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", [
+                        "filter-branch",
+                        "--force",
+                        "--index-filter",
+                        "'git rm --cached --ignore-unmatch " + filePath + "'",
+                        "--prune-empty",
+                        "--tag-name-filter",
+                        "cat",
+                        "--",
+                        "--all",
                     ])];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
+                return [3 /*break*/, 3];
             case 2:
-                _a.sent();
-                // Clean up bfg folder with a delay
-                setTimeout(function () {
-                    cleanUpBfg();
-                }, 2000);
-                return [3 /*break*/, 4];
-            case 3:
                 ex_2 = _a.sent();
                 LogService_1.logError(ex_2);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-var cleanUpBfg = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var parentPath, bfgFolder, bfgPath, ex_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, 3, 4]);
-                LogService_1.logInfo("Cleaning up...");
-                parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-                bfgFolder = process
-                    .cwd()
-                    .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-                    ".bfg-report";
-                bfgPath = parentPath + bfgFolder;
-                return [4 /*yield*/, DirectoryService_1.removeDirectory(bfgPath)];
-            case 1:
-                _a.sent();
-                return [3 /*break*/, 4];
-            case 2:
-                ex_3 = _a.sent();
-                return [3 /*break*/, 4];
-            case 3:
-                LogService_1.logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
-                return [7 /*endfinally*/];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

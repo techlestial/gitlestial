@@ -46,29 +46,23 @@ exports.CheckIfArgIncludes = function (arg) {
     return false;
 };
 exports.CheckIfCommandExists = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var gitTest, bfgTest, ex_1;
+    var gitTest, ex_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git")];
             case 1:
                 gitTest = _a.sent();
                 if (!gitTest) {
                     throw new Error();
                 }
-                return [4 /*yield*/, SpawnService_1.spawnProcess("bfg")];
+                return [3 /*break*/, 3];
             case 2:
-                bfgTest = _a.sent();
-                if (!bfgTest) {
-                    throw new Error();
-                }
-                return [3 /*break*/, 4];
-            case 3:
                 ex_1 = _a.sent();
-                LogService_1.logError(new Error("Git and BFG needs to be installed in your system to get Gitlestial work.\r\n\n        Git cli can be installed from https://git-scm.com/downloads/\r\n\n        BFG cli can be installed from https://rtyley.github.io/bfg-repo-cleaner/"));
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                LogService_1.logError(new Error("Git CLI needs to be installed in your system to get Gitlestial work.\r\n\n        Git CLI can be installed from https://git-scm.com/downloads/\r\n"));
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

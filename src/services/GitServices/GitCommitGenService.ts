@@ -49,36 +49,19 @@ const getRandomNumber = (maxNum: number) => {
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
     logInfo("Complete committing for " + amount + " times");
-    await spawnProcess("bfg", [
-      "--delete-files",
-      fileName,
-      "--no-blob-protection",
+    await spawnProcess("git", [
+      "filter-branch",
+      "--force",
+      "--index-filter",
+      `'git rm --cached --ignore-unmatch ${filePath}'`,
+      "--prune-empty",
+      "--tag-name-filter",
+      "cat",
+      "--",
+      "--all",
     ]);
-    await spawnProcess("git", ["rm", "-f", filePath]);
-    // Clean up bfg folder with a delay
-    setTimeout(() => {
-      cleanUpBfg();
-    }, 2000);
   } catch (ex) {
     logError(ex);
-  }
-};
-
-const cleanUpBfg = async () => {
-  try {
-    logInfo("Cleaning up...");
-    const parentPath = process.cwd().slice(0, process.cwd().lastIndexOf("/"));
-    const bfgFolder =
-      process
-        .cwd()
-        .slice(process.cwd().lastIndexOf("/"), process.cwd().length) +
-      ".bfg-report";
-    const bfgPath = parentPath + bfgFolder;
-    await removeDirectory(bfgPath);
-  } catch (ex) {
-    //logInfo(ex);
-  } finally {
-    logInfo("Now do git push -f <repo> <branch> to your repository and voila!");
   }
 };
 
