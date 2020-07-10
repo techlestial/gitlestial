@@ -1,8 +1,6 @@
 import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError } from "../OtherServices/LogService";
-//import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync } from "fs";
-//import { removeDirectory } from "../OtherServices/DirectoryService";
 import { commitGen } from "config/gitlestial.config";
 
 const folderName = ".gitlestial";
@@ -16,21 +14,12 @@ export const generateCommit = async () => {
     await spawnProcess("mkdir", [folderName]);
     await spawnProcess("touch", [filePath]);
     await spawnProcess("git", ["add", filePath]);
-    //amount = getAmount();
     amount = commitGen.amount;
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
     const contributors = commitGen.contributors;
     const commitMessage = commitGen.message;
-    //const hasContributors = CheckIfArgIncludes("--contributors");
-    //const commitMessage = CheckIfArgIncludes("-m");
-    // if (hasContributors) {
-    //   contributors = getContributors(hasContributors);
-    // }
     for (var i = 0; i < amount; i++) {
-      // if (hasContributors && contributors.length) {
-      //   await setConfigUserEmail(contributors);
-      // }
       if (contributors.length) {
         await setConfigUserEmail(contributors);
       }
@@ -40,7 +29,6 @@ export const generateCommit = async () => {
         "--no-verify",
         "-am",
         commitMessage,
-        // commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
       ]);
     }
   } catch (ex) {
@@ -83,21 +71,4 @@ const setConfigUserEmail = (contributors: string[]) => {
       .then(() => resolve())
       .catch(() => reject());
   });
-};
-
-const getContributors = (contributorsWithComma: string): string[] => {
-  const contributors = contributorsWithComma.split(",");
-  return contributors;
-};
-
-const getAmount = (): number => {
-  const amountIndex = process.argv.indexOf("--amount");
-  if (!amountIndex) {
-    return 1;
-  }
-  const amount = process.argv[amountIndex + 1];
-  if (!parseInt(amount)) {
-    return 1;
-  }
-  return parseInt(amount);
 };
