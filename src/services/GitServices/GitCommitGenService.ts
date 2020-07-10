@@ -17,7 +17,7 @@ export const generateCommit = async () => {
     amount = commitGen.amount;
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
-    const contributors = commitGen.contributors;
+    contributors = commitGen.contributors;
     const commitMessage = commitGen.message;
     for (var i = 0; i < amount; i++) {
       if (contributors.length) {
