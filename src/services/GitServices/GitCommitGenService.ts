@@ -1,8 +1,9 @@
 import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError } from "../OtherServices/LogService";
-import { CheckIfArgIncludes } from "../OtherServices/CommandService";
+//import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync } from "fs";
-import { removeDirectory } from "../OtherServices/DirectoryService";
+//import { removeDirectory } from "../OtherServices/DirectoryService";
+import { commitGen } from "config/gitlestial.config";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
@@ -15,16 +16,22 @@ export const generateCommit = async () => {
     await spawnProcess("mkdir", [folderName]);
     await spawnProcess("touch", [filePath]);
     await spawnProcess("git", ["add", filePath]);
-    amount = getAmount();
+    //amount = getAmount();
+    amount = commitGen.amount;
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
-    const hasContributors = CheckIfArgIncludes("--contributors");
-    const commitMessage = CheckIfArgIncludes("-m");
-    if (hasContributors) {
-      contributors = getContributors(hasContributors);
-    }
+    const contributors = commitGen.contributors;
+    const commitMessage = commitGen.message;
+    //const hasContributors = CheckIfArgIncludes("--contributors");
+    //const commitMessage = CheckIfArgIncludes("-m");
+    // if (hasContributors) {
+    //   contributors = getContributors(hasContributors);
+    // }
     for (var i = 0; i < amount; i++) {
-      if (hasContributors && contributors.length) {
+      // if (hasContributors && contributors.length) {
+      //   await setConfigUserEmail(contributors);
+      // }
+      if (contributors.length) {
         await setConfigUserEmail(contributors);
       }
       writeFileSync(filePath, i.toString());
@@ -32,7 +39,8 @@ export const generateCommit = async () => {
         "commit",
         "--no-verify",
         "-am",
-        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+        commitMessage,
+        // commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
       ]);
     }
   } catch (ex) {
