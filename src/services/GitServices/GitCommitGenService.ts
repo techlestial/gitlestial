@@ -22,7 +22,7 @@ export const generateCommit = async () => {
     }
 
     await spawnProcess("git", ["add", filePath]);
-    amount = commitGen.amount;
+    amount = getAmount();
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
 
@@ -43,7 +43,7 @@ export const generateCommit = async () => {
         "commit",
         "--no-verify",
         "-am",
-        commitMessage,
+        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
       ]);
     }
   } catch (ex) {
@@ -126,4 +126,21 @@ const setConfigUserEmail = (contributors: string[]) => {
       .then(() => resolve())
       .catch(() => reject());
   });
+};
+
+const getContributors = (contributorsWithComma: string): string[] => {
+  const contributors = contributorsWithComma.split(",");
+  return contributors;
+};
+
+const getAmount = (): number => {
+  const amountIndex = process.argv.indexOf("--amount");
+  if (!amountIndex) {
+    return 1;
+  }
+  const amount = process.argv[amountIndex + 1];
+  if (!parseInt(amount)) {
+    return 1;
+  }
+  return parseInt(amount);
 };
