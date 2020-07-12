@@ -1,6 +1,6 @@
 module.exports = {
   commitGen: {
-    amount: 100,
+    amount: 10,
     contributors: ["techlestial@gmail.com"],
     message: "Test triggering commits",
   },

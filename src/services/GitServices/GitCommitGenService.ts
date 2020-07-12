@@ -2,7 +2,7 @@ import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError, logSuccess } from "../OtherServices/LogService";
 import { writeFileSync, existsSync } from "fs";
 import { LoadService } from "../OtherServices/LoadService";
-import { commitGen } from "config/gitlestial.config";
+import { commitGen } from "../../config/gitlestial.config";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
