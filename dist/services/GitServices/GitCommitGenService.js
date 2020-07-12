@@ -41,9 +41,11 @@ var SpawnService_1 = require("../OtherServices/SpawnService");
 var LogService_1 = require("../OtherServices/LogService");
 var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
+var LoadService_1 = require("../OtherServices/LoadService");
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
+var loader = new LoadService_1.LoadService();
 exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, function () {
     var amount, contributors, hasContributors, commitMessage, i, ex_1;
     return __generator(this, function (_a) {
@@ -52,15 +54,20 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                 amount = 1, contributors = [];
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 11, 12, 13]);
+                _a.trys.push([1, 13, 14, 15]);
+                if (!!fs_1.existsSync(folderName)) return [3 /*break*/, 3];
                 return [4 /*yield*/, SpawnService_1.spawnProcess("mkdir", [folderName])];
             case 2:
                 _a.sent();
-                return [4 /*yield*/, SpawnService_1.spawnProcess("touch", [filePath])];
+                _a.label = 3;
             case 3:
-                _a.sent();
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["add", filePath])];
+                if (!!fs_1.existsSync(filePath)) return [3 /*break*/, 5];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("touch", [filePath])];
             case 4:
+                _a.sent();
+                _a.label = 5;
+            case 5: return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["add", filePath])];
+            case 6:
                 _a.sent();
                 amount = getAmount();
                 LogService_1.logInfo("Committing for " + amount + " times");
@@ -71,15 +78,16 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                     contributors = getContributors(hasContributors);
                 }
                 i = 0;
-                _a.label = 5;
-            case 5:
-                if (!(i < amount)) return [3 /*break*/, 10];
-                if (!(hasContributors && contributors.length)) return [3 /*break*/, 7];
-                return [4 /*yield*/, setConfigUserEmail(contributors)];
-            case 6:
-                _a.sent();
                 _a.label = 7;
             case 7:
+                if (!(i < amount - 1)) return [3 /*break*/, 12];
+                amountPercentageLoader(i, amount - 1);
+                if (!(hasContributors && contributors.length)) return [3 /*break*/, 9];
+                return [4 /*yield*/, setConfigUserEmail(contributors)];
+            case 8:
+                _a.sent();
+                _a.label = 9;
+            case 9:
                 fs_1.writeFileSync(filePath, i.toString());
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", [
                         "commit",
@@ -87,24 +95,86 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                         "-am",
                         commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
                     ])];
-            case 8:
+            case 10:
                 _a.sent();
-                _a.label = 9;
-            case 9:
-                i++;
-                return [3 /*break*/, 5];
-            case 10: return [3 /*break*/, 13];
+                _a.label = 11;
             case 11:
+                i++;
+                return [3 /*break*/, 7];
+            case 12: return [3 /*break*/, 15];
+            case 13:
                 ex_1 = _a.sent();
                 LogService_1.logError(ex_1);
-                return [3 /*break*/, 13];
-            case 12:
+                return [3 /*break*/, 15];
+            case 14:
                 cleanUpGitCommitFile(amount);
                 return [7 /*endfinally*/];
-            case 13: return [2 /*return*/];
+            case 15: return [2 /*return*/];
         }
     });
 }); };
+var amountPercentageLoader = function (current, limit) {
+    if (current <= limit * 0.05) {
+        loader.load(1);
+    }
+    else if (current <= limit * 0.1) {
+        loader.load(2);
+    }
+    else if (current <= limit * 0.15) {
+        loader.load(3);
+    }
+    else if (current <= limit * 0.2) {
+        loader.load(4);
+    }
+    else if (current <= limit * 0.25) {
+        loader.load(5);
+    }
+    else if (current <= limit * 0.3) {
+        loader.load(6);
+    }
+    else if (current <= limit * 0.35) {
+        loader.load(7);
+    }
+    else if (current <= limit * 0.4) {
+        loader.load(8);
+    }
+    else if (current <= limit * 0.45) {
+        loader.load(9);
+    }
+    else if (current <= limit * 0.5) {
+        loader.load(10);
+    }
+    else if (current <= limit * 0.55) {
+        loader.load(11);
+    }
+    else if (current <= limit * 0.6) {
+        loader.load(12);
+    }
+    else if (current <= limit * 0.65) {
+        loader.load(13);
+    }
+    else if (current <= limit * 0.7) {
+        loader.load(14);
+    }
+    else if (current <= limit * 0.75) {
+        loader.load(15);
+    }
+    else if (current <= limit * 0.8) {
+        loader.load(16);
+    }
+    else if (current <= limit * 0.85) {
+        loader.load(17);
+    }
+    else if (current <= limit * 0.9) {
+        loader.load(18);
+    }
+    else if (current <= limit * 0.95) {
+        loader.load(19);
+    }
+    else if (current <= limit) {
+        loader.load(20);
+    }
+};
 var getRandomNumber = function (maxNum) {
     return Math.floor(Math.random() * maxNum);
 };
@@ -114,15 +184,10 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, 4, 5]);
-                LogService_1.logInfo("Complete committing for " + amount + " times");
-                return [4 /*yield*/, SpawnService_1.spawnProcess("bfg", [
-                        "--delete-files",
-                        fileName,
-                        "--no-blob-protection",
-                    ])];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["commit", "-am", "complete: gitlestial"])];
             case 2:
                 _a.sent();
                 return [3 /*break*/, 5];
@@ -131,7 +196,8 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
                 LogService_1.logError(ex_2);
                 return [3 /*break*/, 5];
             case 4:
-                LogService_1.logInfo("Now do git push to your repository and voila!");
+                LogService_1.logSuccess("Complete committing for " + amount + " times");
+                LogService_1.logSuccess("Now do git push to your repository and voila!");
                 return [7 /*endfinally*/];
             case 5: return [2 /*return*/];
         }
