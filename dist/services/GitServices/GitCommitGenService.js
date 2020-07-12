@@ -39,15 +39,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateCommit = void 0;
 var SpawnService_1 = require("../OtherServices/SpawnService");
 var LogService_1 = require("../OtherServices/LogService");
-var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
 var LoadService_1 = require("../OtherServices/LoadService");
+var gitlestial_config_1 = require("../../config/gitlestial.config");
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
 var loader = new LoadService_1.LoadService();
 exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var amount, contributors, hasContributors, commitMessage, i, ex_1;
+    var amount, contributors, commitMessage, i, ex_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -69,20 +69,17 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
             case 5: return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["add", filePath])];
             case 6:
                 _a.sent();
-                amount = getAmount();
+                amount = gitlestial_config_1.commitGen.amount;
                 LogService_1.logInfo("Committing for " + amount + " times");
                 LogService_1.logInfo("Do not terminate this process!");
-                hasContributors = CommandService_1.CheckIfArgIncludes("--contributors");
-                commitMessage = CommandService_1.CheckIfArgIncludes("-m");
-                if (hasContributors) {
-                    contributors = getContributors(hasContributors);
-                }
+                commitMessage = gitlestial_config_1.commitGen.message;
+                contributors = gitlestial_config_1.commitGen.contributors;
                 i = 0;
                 _a.label = 7;
             case 7:
                 if (!(i < amount - 1)) return [3 /*break*/, 12];
                 amountPercentageLoader(i, amount - 1);
-                if (!(hasContributors && contributors.length)) return [3 /*break*/, 9];
+                if (!contributors.length) return [3 /*break*/, 9];
                 return [4 /*yield*/, setConfigUserEmail(contributors)];
             case 8:
                 _a.sent();
@@ -93,7 +90,7 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                         "commit",
                         "--no-verify",
                         "-am",
-                        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+                        commitMessage,
                     ])];
             case 10:
                 _a.sent();
@@ -216,20 +213,5 @@ var setConfigUserEmail = function (contributors) {
             .then(function () { return resolve(); })
             .catch(function () { return reject(); });
     });
-};
-var getContributors = function (contributorsWithComma) {
-    var contributors = contributorsWithComma.split(",");
-    return contributors;
-};
-var getAmount = function () {
-    var amountIndex = process.argv.indexOf("--amount");
-    if (!amountIndex) {
-        return 1;
-    }
-    var amount = process.argv[amountIndex + 1];
-    if (!parseInt(amount)) {
-        return 1;
-    }
-    return parseInt(amount);
 };
 //# sourceMappingURL=GitCommitGenService.js.map
