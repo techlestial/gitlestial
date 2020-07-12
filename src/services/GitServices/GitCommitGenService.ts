@@ -2,7 +2,7 @@ import { spawnProcess } from "../OtherServices/SpawnService";
 import { logInfo, logError, logSuccess } from "../OtherServices/LogService";
 import { writeFileSync, existsSync } from "fs";
 import { LoadService } from "../OtherServices/LoadService";
-import { commitGen } from "config/gitlestial.config.js";
+import * as config from "config/gitlestial.config";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
@@ -22,12 +22,12 @@ export const generateCommit = async () => {
     }
 
     await spawnProcess("git", ["add", filePath]);
-    amount = commitGen.amount;
+    amount = config.commitGen.amount;
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
 
-    const commitMessage = commitGen.message;
-    contributors = commitGen.contributors;
+    const commitMessage = config.commitGen.message;
+    contributors = config.commitGen.contributors;
 
     for (var i = 0; i < amount - 1; i++) {
       amountPercentageLoader(i, amount - 1);
