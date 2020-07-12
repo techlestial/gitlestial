@@ -3,6 +3,7 @@ import { logInfo, logError, logSuccess } from "../OtherServices/LogService";
 import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync, existsSync } from "fs";
 import { LoadService } from "../OtherServices/LoadService";
+import { commitGen } from "config/gitlestial.config";
 
 const folderName = ".gitlestial";
 const fileName = ".commit";
@@ -22,19 +23,16 @@ export const generateCommit = async () => {
     }
 
     await spawnProcess("git", ["add", filePath]);
-    amount = getAmount();
+    amount = commitGen.amount;
     logInfo("Committing for " + amount + " times");
     logInfo("Do not terminate this process!");
 
-    const hasContributors = CheckIfArgIncludes("--contributors");
-    const commitMessage = CheckIfArgIncludes("-m");
-    if (hasContributors) {
-      contributors = getContributors(hasContributors);
-    }
+    const commitMessage = commitGen.message;
+    contributors = commitGen.contributors;
 
     for (var i = 0; i < amount - 1; i++) {
       amountPercentageLoader(i, amount - 1);
-      if (hasContributors && contributors.length) {
+      if (contributors.length) {
         await setConfigUserEmail(contributors);
       }
 
@@ -43,7 +41,7 @@ export const generateCommit = async () => {
         "commit",
         "--no-verify",
         "-am",
-        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+        commitMessage,
       ]);
     }
   } catch (ex) {
@@ -126,21 +124,4 @@ const setConfigUserEmail = (contributors: string[]) => {
       .then(() => resolve())
       .catch(() => reject());
   });
-};
-
-const getContributors = (contributorsWithComma: string): string[] => {
-  const contributors = contributorsWithComma.split(",");
-  return contributors;
-};
-
-const getAmount = (): number => {
-  const amountIndex = process.argv.indexOf("--amount");
-  if (!amountIndex) {
-    return 1;
-  }
-  const amount = process.argv[amountIndex + 1];
-  if (!parseInt(amount)) {
-    return 1;
-  }
-  return parseInt(amount);
 };
