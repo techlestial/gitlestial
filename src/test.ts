@@ -7,6 +7,5 @@
 //  index = index >= 100 ? 0 : index + 1;
 //}, 100);
 
-import { Main } from ".";
-
-Main();
+import { commitGen } from "./config/gitlestial.config";
+console.log(commitGen.amount);

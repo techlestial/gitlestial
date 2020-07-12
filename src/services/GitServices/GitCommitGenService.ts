@@ -8,10 +8,12 @@ const folderName = ".gitlestial";
 const fileName = ".commit";
 const filePath = process.cwd() + `/${folderName}/` + fileName;
 const loader = new LoadService();
+declare var amount: number;
+declare var contributors: string[] = [];
 
 export const generateCommit = async () => {
-  let amount: number = 1,
-    contributors: string[] = [];
+  // let amount: number = 1,
+  //   contributors: string[] = [];
   try {
     if (!existsSync(folderName)) {
       await spawnProcess("mkdir", [folderName]);
