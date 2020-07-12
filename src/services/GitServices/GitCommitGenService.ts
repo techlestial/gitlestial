@@ -23,8 +23,7 @@ export const generateCommit = async () => {
     }
 
     await spawnProcess("git", ["add", filePath]);
-    amount = commitGen.amount;
-    logInfo("Committing for " + amount + " times");
+    logInfo("Committing for " + commitGen.amount + " times");
     logInfo("Do not terminate this process!");
 
     const commitMessage = commitGen.message;
