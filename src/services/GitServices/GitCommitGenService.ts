@@ -105,7 +105,7 @@ const getRandomNumber = (maxNum: number) => {
 const cleanUpGitCommitFile = async (amount: number) => {
   try {
     await spawnProcess("git", ["rm", "-f", filePath]);
-    await spawnProcess("git", ["commit", "-am", "complete: gitlestial"]);
+    await spawnProcess("git", ["commit", "-am", `"complete: gitlestial"`]);
   } catch (ex) {
     logError(ex);
   } finally {
