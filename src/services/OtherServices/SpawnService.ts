@@ -21,7 +21,7 @@ export const spawnProcess = (
     });
     //Closing
     child.on("close", () => {
-      return resolve();
+      return resolve("");
     });
   });
 };
