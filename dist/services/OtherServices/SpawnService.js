@@ -4,7 +4,8 @@ exports.spawnProcess = void 0;
 var child_process_1 = require("child_process");
 exports.spawnProcess = function (command, args) {
     return new Promise(function (resolve, reject) {
-        var child = child_process_1.spawn(command, args);
+        var options = process.platform === "win32" ? { shell: true } : {};
+        var child = child_process_1.spawn(command, args, options);
         //Returns success output
         child.stdout.on("data", function (resultChunk) {
             return resolve(resultChunk.toString("utf-8"));
@@ -19,7 +20,7 @@ exports.spawnProcess = function (command, args) {
         });
         //Closing
         child.on("close", function () {
-            return resolve();
+            return resolve("");
         });
     });
 };

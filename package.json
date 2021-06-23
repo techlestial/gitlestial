@@ -1,43 +1,44 @@
 {
-	"name": "@techlestial/gitlestial",
-	"version": "1.0.6",
-	"description": "Gitlestial - A git manipulating tool",
-	"main": "dist/index.js",
-	"typings": "dist/index.d.ts",
-	"bin": {
-		"gitlestial": "bin/gitlestial"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "rimraf dist && tsc",
-		"debug": "ts-node src/test.ts commit-gen --amount 100"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/techlestial/gitlestial.git"
-	},
-	"keywords": [
-		"git",
-		"gitlestial",
-		"git",
-		"manipulator"
-	],
-	"author": "m3yevn",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/techlestial/gitlestial/issues"
-	},
-	"homepage": "https://github.com/techlestial/gitlestial#readme",
-	"dependencies": {},
-	"devDependencies": {
-		"@types/node": "^14.0.12",
-		"@types/rimraf": "^3.0.0",
-		"rimraf": "^3.0.2",
-		"ts-node": "^8.10.2",
-		"typescript": "^3.9.5"
-	},
-	"funFacts": [],
-	"badges": [],
-	"techStacks": [],
-	"screenshots": []
+  "name": "@techlestial/gitlestial",
+  "version": "1.0.7",
+  "description": "Gitlestial - A git manipulating tool",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "bin": {
+    "gitlestial": "bin/gitlestial"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && tsc",
+    "debug": "ts-node src/test.ts commit-gen --amount 100",
+	"publish": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techlestial/gitlestial.git"
+  },
+  "keywords": [
+    "git",
+    "gitlestial",
+    "git",
+    "manipulator"
+  ],
+  "author": "m3yevn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/techlestial/gitlestial/issues"
+  },
+  "homepage": "https://github.com/techlestial/gitlestial#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.0.12",
+    "@types/rimraf": "^3.0.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  },
+  "funFacts": [],
+  "badges": [],
+  "techStacks": [],
+  "screenshots": []
 }

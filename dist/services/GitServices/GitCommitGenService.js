@@ -42,6 +42,7 @@ var LogService_1 = require("../OtherServices/LogService");
 var CommandService_1 = require("../OtherServices/CommandService");
 var fs_1 = require("fs");
 var LoadService_1 = require("../OtherServices/LoadService");
+var CREATE_FILE_CMD = process.platform === "win32" ? "type nul > " : "touch";
 var folderName = ".gitlestial";
 var fileName = ".commit";
 var filePath = process.cwd() + ("/" + folderName + "/") + fileName;
@@ -62,7 +63,7 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                 _a.label = 3;
             case 3:
                 if (!!fs_1.existsSync(filePath)) return [3 /*break*/, 5];
-                return [4 /*yield*/, SpawnService_1.spawnProcess("touch", [filePath])];
+                return [4 /*yield*/, SpawnService_1.spawnProcess(CREATE_FILE_CMD, [filePath])];
             case 4:
                 _a.sent();
                 _a.label = 5;
@@ -93,7 +94,7 @@ exports.generateCommit = function () { return __awaiter(void 0, void 0, void 0, 
                         "commit",
                         "--no-verify",
                         "-am",
-                        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+                        commitMessage ? commitMessage.toString() : "\"Gitlestial Commit-gen\"",
                     ])];
             case 10:
                 _a.sent();
@@ -187,7 +188,7 @@ var cleanUpGitCommitFile = function (amount) { return __awaiter(void 0, void 0, 
                 return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["rm", "-f", filePath])];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["commit", "-am", "complete: gitlestial"])];
+                return [4 /*yield*/, SpawnService_1.spawnProcess("git", ["commit", "-am", "\"complete: gitlestial\""])];
             case 2:
                 _a.sent();
                 return [3 /*break*/, 5];
@@ -213,7 +214,7 @@ var setConfigUserEmail = function (contributors) {
             "user.email",
             contributors[getRandomNumber(contributors.length)],
         ])
-            .then(function () { return resolve(); })
+            .then(function () { return resolve(""); })
             .catch(function () { return reject(); });
     });
 };
