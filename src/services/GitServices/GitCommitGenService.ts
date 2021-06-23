@@ -4,6 +4,7 @@ import { CheckIfArgIncludes } from "../OtherServices/CommandService";
 import { writeFileSync, existsSync } from "fs";
 import { LoadService } from "../OtherServices/LoadService";
 
+const CREATE_FILE_CMD = process.platform === "win32" ? "type nul > " : "touch";
 const folderName = ".gitlestial";
 const fileName = ".commit";
 const filePath = process.cwd() + `/${folderName}/` + fileName;
@@ -18,7 +19,7 @@ export const generateCommit = async () => {
     }
 
     if (!existsSync(filePath)) {
-      await spawnProcess("touch", [filePath]);
+      await spawnProcess(CREATE_FILE_CMD, [filePath]);
     }
 
     await spawnProcess("git", ["add", filePath]);
@@ -43,7 +44,7 @@ export const generateCommit = async () => {
         "commit",
         "--no-verify",
         "-am",
-        commitMessage ? commitMessage.toString() : "Gitlestial Commit-gen",
+        commitMessage ? commitMessage.toString() : `"Gitlestial Commit-gen"`,
       ]);
     }
   } catch (ex) {
@@ -123,7 +124,7 @@ const setConfigUserEmail = (contributors: string[]) => {
       "user.email",
       contributors[getRandomNumber(contributors.length)],
     ])
-      .then(() => resolve())
+      .then(() => resolve(""))
       .catch(() => reject());
   });
 };
