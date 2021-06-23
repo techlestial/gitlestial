@@ -1,33 +1,34 @@
-# 🔥@techlestial/gitlestial🔥
+# @techlestial/gitlestial
 
 **Gitlestial - A git manipulating tool**
 
-<p>Version 1.0.5</p>
+<p>Version 1.0.6</p>
 <p>by m3yevn</p>
 
 <hr/>
-This project is awesome!
 
-This project is well tested!
+
+
+
 
 ## ⭐ Public Url
 
-This project is not published to public!
+N.A
 
 ## 📚 Tech Stack
 
-This project is using awesome tech stacks!
+N.A
 
 ## 📸 Screenshots
 
-This project does not have screenshots available.
+N.A
 
 ## 📜 Scripts
 
 ```sh
 test : $ echo "Error: no test specified" && exit 1
-build : $ rm -rf dist && tsc
-debug : $ ts-node .
+build : $ rimraf dist && tsc
+debug : $ ts-node src/test.ts commit-gen --amount 100
 
 ```
 
