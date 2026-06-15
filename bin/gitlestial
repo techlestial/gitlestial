@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-const { Main } = require("../dist");
-Main();
+import "../dist/cli.js";

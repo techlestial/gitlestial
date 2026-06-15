@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs — Gitlestial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo"><span>😈</span><span class="logo-text">Git<strong>lestial</strong></span></a>
+        <nav class="nav"><a href="/docs">Docs</a><a href="https://github.com/techlestial/gitlestial">GitHub</a></nav>
+      </div>
+    </header>
+    <main class="docs-main">
+      <div class="container">
+        <h1>Documentation</h1>
+        <p>Gitlestial v2 — install globally and use alongside git.</p>
+
+        <h2>Install</h2>
+        <pre>npm i -g @techlestial/gitlestial</pre>
+
+        <h2>changelog</h2>
+        <p>Build a markdown changelog from recent commits (conventional commit subjects grouped by type).</p>
+        <pre>gitlestial changelog
+gitlestial changelog --from v1.0.0
+gitlestial changelog --out CHANGELOG.md -n 100</pre>
+
+        <h2>commit-msg</h2>
+        <p>Reminder for conventional commit format before you commit.</p>
+        <pre>gitlestial commit-msg
+gitlestial commit-msg --scope api</pre>
+
+        <h2>Git passthrough</h2>
+        <p>Any unrecognized command is forwarded to git:</p>
+        <pre>gitlestial status
+gitlestial branch -a
+gitlestial log --oneline -10</pre>
+
+        <h2>v2 breaking change</h2>
+        <p><code>commit-gen</code> was removed — it manipulated history. Use real commits with <code>commit-msg</code> guidance instead.</p>
+
+        <h2>Conventional commit types</h2>
+        <ul>
+          <li><code>feat</code> — new feature</li>
+          <li><code>fix</code> — bug fix</li>
+          <li><code>docs</code>, <code>style</code>, <code>refactor</code>, <code>perf</code>, <code>test</code>, <code>build</code>, <code>ci</code>, <code>chore</code></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

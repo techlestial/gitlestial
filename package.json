@@ -1,44 +1,36 @@
 {
   "name": "@techlestial/gitlestial",
-  "version": "1.0.7",
-  "description": "Gitlestial - A git manipulating tool",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "version": "2.0.0",
+  "description": "Gitlestial — git productivity CLI with changelog and conventional commit helpers",
+  "type": "module",
+  "main": "./dist/cli.js",
   "bin": {
-    "gitlestial": "bin/gitlestial"
+    "gitlestial": "./bin/gitlestial"
   },
+  "files": ["dist", "bin", "README.md", "LICENSE"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc",
-    "debug": "ts-node src/test.ts commit-gen --amount 100",
-	"publish": "npm publish --access public"
+    "dev": "tsc --watch",
+    "start": "node dist/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/techlestial/gitlestial.git"
   },
-  "keywords": [
-    "git",
-    "gitlestial",
-    "git",
-    "manipulator"
-  ],
+  "homepage": "https://gitlestial.vercel.app",
+  "keywords": ["git", "gitlestial", "changelog", "conventional-commits", "cli"],
   "author": "m3yevn",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/techlestial/gitlestial/issues"
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "commander": "^12.1.0"
   },
-  "homepage": "https://github.com/techlestial/gitlestial#readme",
-  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^14.0.12",
-    "@types/rimraf": "^3.0.0",
-    "rimraf": "^3.0.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
-  },
-  "funFacts": [],
-  "badges": [],
-  "techStacks": [],
-  "screenshots": []
+    "@types/node": "^22.10.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
 }

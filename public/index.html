@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gitlestial — Git productivity CLI</title>
+    <meta name="description" content="Gitlestial v2 — changelog generator, conventional commit helpers, and git passthrough. By @techlestial." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://gitlestial.vercel.app/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo"><span>😈</span><span class="logo-text">Git<strong>lestial</strong></span></a>
+        <nav class="nav">
+          <a href="/docs">Docs</a>
+          <a href="https://github.com/techlestial/gitlestial" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/@techlestial/gitlestial" rel="noopener">npm</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="version-badge">v2.0 — rebirth</span>
+          <h1>Git workflows, <span class="accent">elevated</span></h1>
+          <p class="hero-lead">
+            Changelog from conventional commits, commit message guides, and full git passthrough — one CLI.
+          </p>
+          <div class="install-block">npm i -g @techlestial/gitlestial</div>
+          <p style="margin-top:24px">
+            <a class="btn" href="/docs">Read the docs</a>
+            <a class="btn btn-outline" href="https://github.com/techlestial/gitlestial">View source</a>
+          </p>
+        </div>
+      </section>
+      <section class="features">
+        <div class="container">
+          <h2>Commands</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>changelog</h3>
+              <p>Generate markdown changelogs grouped by feat, fix, docs — from your git history.</p>
+            </article>
+            <article class="card">
+              <h3>commit-msg</h3>
+              <p>Print conventional commit format with types and scoped examples.</p>
+            </article>
+            <article class="card">
+              <h3>git passthrough</h3>
+              <p>Run any git command: <code>gitlestial status</code>, <code>gitlestial log -5</code>.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">MIT · <a href="https://github.com/techlestial">@techlestial</a> · Kevin Moe Myint Myat</div>
+    </footer>
+  </body>
+</html>

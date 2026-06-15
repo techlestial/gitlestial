@@ -1,83 +1,36 @@
 # @techlestial/gitlestial
 
-**Gitlestial - A git manipulating tool**
+**Gitlestial v2** — git productivity CLI: changelog, conventional commit guides, and full git passthrough.
 
-<p>Version 1.0.6</p>
-<p>by m3yevn</p>
+- **Site:** [gitlestial.vercel.app](https://gitlestial.vercel.app) (deploy after push)
+- **Docs:** `/docs` on the site
 
-<hr/>
-
-
-
-
-
-## ⭐ Public Url
-
-N.A
-
-## 📚 Tech Stack
-
-N.A
-
-## 📸 Screenshots
-
-N.A
-
-## 📜 Scripts
+## Install
 
 ```sh
-test : $ echo "Error: no test specified" && exit 1
-build : $ rimraf dist && tsc
-debug : $ ts-node src/test.ts commit-gen --amount 100
-
+npm i -g @techlestial/gitlestial
 ```
 
-## 🔑 Keywords
+## Commands
 
-git,gitlestial,git,manipulator
+```sh
+gitlestial changelog
+gitlestial changelog --from v1.0.0 --out CHANGELOG.md
+gitlestial commit-msg --scope api
+gitlestial status   # passthrough to git
+```
 
-## 👾 Submit issues at
+## Develop
 
-https://github.com/techlestial/gitlestial/issues
+```sh
+npm install
+npm run build
+npm test
+node dist/cli.js changelog -n 10
+```
 
-## ©️ License
+## v2 breaking change
 
-MIT License
+`commit-gen` was removed. Use real commits with conventional commit format.
 
-Copyright (c) 2020 Techlestial
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## Dependencies
-
-This project does not have dependencies
-
-## Dev Dependencies
-
- - @types/node : $ ^14.0.12
- - @types/rimraf : $ ^3.0.0
- - rimraf : $ ^3.0.2
- - ts-node : $ ^8.10.2
- - typescript : $ ^3.9.5
-
-
-<img src="https://cdn.dribbble.com/users/2401141/screenshots/5487982/developers-gif-showcase.gif"/>
-
-<hr/>
-Happy Coding!
+MIT · [@techlestial](https://github.com/techlestial)
