@@ -39,6 +39,11 @@ gitlestial commit-msg --scope api</pre>
 gitlestial branch -a
 gitlestial log --oneline -10</pre>
 
+        <h2>hook-template</h2>
+        <p>Optional git hook enforcing conventional commit messages:</p>
+        <pre>gitlestial hook-template > .git/hooks/commit-msg
+chmod +x .git/hooks/commit-msg   # macOS / Linux</pre>
+
         <h2>v2 breaking change</h2>
         <p><code>commit-gen</code> was removed — it manipulated history. Use real commits with <code>commit-msg</code> guidance instead.</p>
 

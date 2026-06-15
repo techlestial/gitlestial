@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { runChangelog } from "./commands/changelog.js";
 import { printCommitGuide } from "./commands/commit-msg.js";
+import { printHookTemplate } from "./commands/hook-template.js";
 import { passthroughGit } from "./lib/spawn.js";
 import { logError, logInfo } from "./lib/log.js";
 
@@ -40,7 +41,11 @@ program
   .action((opts) => printCommitGuide(opts.scope));
 
 program
-  .command("commit-gen")
+  .command("hook-template")
+  .description("Print a commit-msg git hook for conventional commits")
+  .action(() => printHookTemplate());
+
+program
   .description("(deprecated) Use conventional commits instead")
   .action(() => {
     logError("commit-gen is removed in v2 — it manipulated git history.");
