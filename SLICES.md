@@ -13,7 +13,7 @@
 | `robots.txt` + sitemap | ✅ |
 | `hook-template` command | ✅ |
 | Vercel deploy | ✅ [gitlestial.vercel.app](https://gitlestial.vercel.app) |
-| npm publish `@techlestial/gitlestial@2` | ⏳ tag `v2.0.0` pushed — publish via npm (browser auth) |
+| npm publish `@techlestial/gitlestial@2` | ✅ [2.0.0](https://www.npmjs.com/package/@techlestial/gitlestial) |
 
 ## CD
 
