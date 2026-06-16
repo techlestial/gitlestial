@@ -7,7 +7,12 @@
   "bin": {
     "gitlestial": "./bin/gitlestial"
   },
-  "files": ["dist", "bin", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rimraf dist && tsc",
     "dev": "tsc --watch",
@@ -20,10 +25,18 @@
     "url": "git+https://github.com/techlestial/gitlestial.git"
   },
   "homepage": "https://gitlestial.vercel.app",
-  "keywords": ["git", "gitlestial", "changelog", "conventional-commits", "cli"],
+  "keywords": [
+    "git",
+    "gitlestial",
+    "changelog",
+    "conventional-commits",
+    "cli"
+  ],
   "author": "m3yevn",
   "license": "MIT",
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "commander": "^12.1.0"
   },
@@ -31,6 +44,6 @@
     "@types/node": "^22.10.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^4.1.9"
   }
 }

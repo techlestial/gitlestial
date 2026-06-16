@@ -12,8 +12,8 @@
 | CI + release workflows | ✅ |
 | `robots.txt` + sitemap | ✅ |
 | `hook-template` command | ✅ |
-| Vercel deploy | ⏳ push + connect project |
-| npm publish `@techlestial/gitlestial@2` | ⏳ tag `v2.0.0` + `NPM_TOKEN` secret |
+| Vercel deploy | ✅ [gitlestial.vercel.app](https://gitlestial.vercel.app) |
+| npm publish `@techlestial/gitlestial@2` | ⏳ tag `v2.0.0` pushed — publish via npm (browser auth) |
 
 ## CD
 
